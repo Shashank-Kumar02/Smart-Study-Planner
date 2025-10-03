@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Smart Study Planner</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 120 120" width="48" height="48">
+          <circle cx="60" cy="60" r="58" stroke="currentColor" stroke-width="4"/>
+          <path d="M30 80 L50 45 L70 80 Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <h1>Smart Study Planner</h1>
+    </div>
+    <div class="actions">
+      <button id="toggleViewBtn" class="btn">Timeline</button>
+      <button id="exportBtn" class="btn subtle">Export</button>
+      <button id="importBtn" class="btn subtle">Import</button>
+      <button id="darkModeToggle" class="btn subtle">🌙</button>
+      <input id="importFile" type="file" accept="application/json" style="display:none"/>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-left">
+        <h2>Organise. Remember. Achieve.</h2>
+        <p>Create study goals, set reminders, track progress, and visualise your tasks on a timeline — all saved locally in your browser.</p>
+        <div class="quick-stats">
+          <div><span id="totalTasks">0</span><small>Tasks</small></div>
+          <div><span id="completedTasks">0</span><small>Completed</small></div>
+          <div><span id="upcomingTasks">0</span><small>Due Soon</small></div>
+        </div>
+      </div>
+      <div class="hero-right" aria-hidden="true">
+        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=600&q=80" alt="Study" class="hero-image"/>
+      </div>
+    </section>
+
+    <section class="planner">
+      <!-- Task Form -->
+      <form id="taskForm" class="task-form">
+        <h3>Add / Edit Goal</h3>
+        <div class="form-grid">
+          <input id="title" required placeholder="Goal title (e.g., Finish Chapter 4)" />
+          <input id="subject" placeholder="Subject (e.g., Math)" />
+          <input id="dueDate" type="datetime-local" />
+          <select id="priority">
+            <option value="low">Low priority</option>
+            <option value="medium" selected>Medium priority</option>
+            <option value="high">High priority</option>
+          </select>
+          <input id="estHours" type="number" min="0" step="0.5" placeholder="Est. hours" />
+          <input id="reminderMins" type="number" min="0" placeholder="Reminder (mins before)" />
+        </div>
+        <div class="form-row">
+          <button type="submit" class="btn primary">Save Goal</button>
+          <button type="button" id="clearBtn" class="btn subtle">Clear</button>
+          <div class="search-wrap">
+            <input id="search" placeholder="Search tasks..." />
+          </div>
+        </div>
+      </form>
+
+      <!-- Filters -->
+      <div class="controls">
+        <div class="filter-row">
+          <label>Filter:
+            <select id="filterSelect">
+              <option value="all">All</option>
+              <option value="completed">Completed</option>
+              <option value="incomplete">Incomplete</option>
+              <option value="today">Due Today</option>
+              <option value="high">High Priority</option>
+            </select>
+          </label>
+          <label>Sort by:
+            <select id="sortSelect">
+              <option value="dueAsc">Due date ↑</option>
+              <option value="dueDesc">Due date ↓</option>
+              <option value="priority">Priority</option>
+              <option value="created">Created</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <!-- Views -->
+      <section id="listView" class="list-view"></section>
+      <section id="timelineView" class="timeline-view hidden">
+        <div class="timeline-inner" id="timelineInner"></div>
+        <div class="timeline-legend">
+          <div><span class="legend-box low"></span>Low</div>
+          <div><span class="legend-box medium"></span>Medium</div>
+          <div><span class="legend-box high"></span>High</div>
+        </div>
+      </section>
+    </section>
+
+    <!-- Motivation & Book Recommendations -->
+    <section class="extra-section">
+      <h3>📚 Recommended Books</h3>
+      <div id="bookList" class="book-list"></div>
+      <h3>💡 Daily Motivation</h3>
+      <blockquote id="quoteBox">Stay positive, work hard, make it happen.</blockquote>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <small>Smart Study Planner • Data stored locally in your browser</small>
+    <div class="footer-links">
+      <button id="clearAll" class="btn subtle">Clear All</button>
+    </div>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
